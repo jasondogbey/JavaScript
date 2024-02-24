@@ -96,11 +96,41 @@ const transpose = (reels) => {
     return rows;
 }
 
+const display = (rows) => {
+    for (const row of rows){
+        let displayString = ""
+        for (let i = 0; i < row.length; i++){
+            displayString += row[i] 
+            if (i != row.length - 1){
+                displayString += " | "
+            }
+        }
+        console.log(displayString)
+    }
+}
+/*
+const checkWinnings = (rows) => {
+    allTheSame = true
+    for (row in rows){
+        for (i = 0; i < row.length; i++){
+            if (!(row[0] === row[i])){
+                allTheSame = false
+                break
+            }
+        }
+        if (allTheSame){
+
+        }
+    }
+}
+*/
+
 let balance = deposit()
 const numberOfLines = getNumberOfLines()
 const betPerLine = getBet(balance, numberOfLines)
 const reels = spin()
 const rows = transpose(reels)
+display(rows)
 
 console.log(reels)
 console.log(rows)
