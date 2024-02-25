@@ -68,7 +68,6 @@ const spin = () => {
             symbols.push(symbol)
         }
     }
-    console.log(symbols)
 
     const reels = []
 
@@ -108,22 +107,27 @@ const display = (rows) => {
         console.log(displayString)
     }
 }
-/*
-const checkWinnings = (rows) => {
-    allTheSame = true
-    for (row in rows){
-        for (i = 0; i < row.length; i++){
-            if (!(row[0] === row[i])){
+
+const checkWinnings = (rows, betPerLine, numberOfLines) => {
+    let winnings = 0
+    
+    for (let row = 0; row < numberOfLines; row++){
+        const symbols = rows[row]
+        let allTheSame = true
+        for (const symbol of symbols){
+            if (symbols[0] != symbol){
                 allTheSame = false
                 break
             }
         }
         if (allTheSame){
-
+            winnings += betPerLine * SYMBOL_VALUES[symbols[0]]
         }
     }
+    
+    return winnings
 }
-*/
+
 
 let balance = deposit()
 const numberOfLines = getNumberOfLines()
@@ -131,8 +135,9 @@ const betPerLine = getBet(balance, numberOfLines)
 const reels = spin()
 const rows = transpose(reels)
 display(rows)
+const winnings = checkWinnings(rows, betPerLine, numberOfLines)
+console.log("You won, $" + winnings)
 
-console.log(reels)
 console.log(rows)
 console.log("Balance is $" + balance)
 console.log("Number of lines is: " + numberOfLines)
